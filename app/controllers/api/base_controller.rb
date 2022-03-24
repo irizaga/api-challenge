@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Api::BaseController < ApplicationController
+  include ActionController::HttpAuthentication::Token::ControllerMethods
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
   before_action :authenticate
 
@@ -11,6 +12,8 @@ class Api::BaseController < ApplicationController
   end
 
   def authenticate
-    # ActionController::HttpAuthentication::Token::ControllerMethods
+    authenticate_or_request_with_http_token do |token, _options|
+      ActiveSupport::SecurityUtils.secure_compare(token, ENV['TOKEN'])
+    end
   end
 end

@@ -7,11 +7,15 @@ paths:
   "/api/v1/people":
     get:
       summary: list people
+      security:
+      - Token: []
       responses:
         '200':
           description: successful
     post:
       summary: create person
+      security:
+      - Token: []
       responses:
         '200':
           description: successful
@@ -25,21 +29,44 @@ paths:
         type: string
     get:
       summary: show person
+      security:
+      - Token: []
       responses:
         '200':
           description: successful
     patch:
       summary: update person
+      security:
+      - Token: []
       responses:
         '200':
           description: successful
     put:
       summary: update person
+      security:
+      - Token: []
       responses:
         '200':
           description: successful
     delete:
       summary: delete person
+      security:
+      - Token: []
+      responses:
+        '200':
+          description: successful
+  "/api/v1/raffle":
+    get:
+      summary: list raffles
+      security:
+      - Token: []
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: pick raffle
+      security:
+      - Token: []
       responses:
         '200':
           description: successful
@@ -48,3 +75,10 @@ servers:
   variables:
     defaultHost:
       default: localhost
+components:
+  securitySchemes:
+    Token:
+      description: Key necessary to use API calls
+      type: apiKey
+      name: Authorization
+      in: header

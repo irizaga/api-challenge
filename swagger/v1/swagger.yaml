@@ -16,9 +16,29 @@ paths:
       summary: create person
       security:
       - Token: []
+      parameters: []
       responses:
-        '200':
+        '201':
           description: successful
+        '402':
+          description: invalid data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                cpf:
+                  type: string
+                birthdate:
+                  type: string
+                  format: date
+              required:
+              - name
+              - cpf
+              - birthdate
   "/api/v1/people/{id}":
     parameters:
     - name: id
@@ -34,27 +54,42 @@ paths:
       responses:
         '200':
           description: successful
+        '404':
+          description: person not found
     patch:
       summary: update person
+      parameters: []
       security:
       - Token: []
       responses:
         '200':
           description: successful
-    put:
-      summary: update person
-      security:
-      - Token: []
-      responses:
-        '200':
-          description: successful
+        '404':
+          description: person not found
+        '422':
+          description: invalid data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                cpf:
+                  type: string
+                birthdate:
+                  type: string
+                  format: date
     delete:
       summary: delete person
       security:
       - Token: []
       responses:
-        '200':
+        '204':
           description: successful
+        '404':
+          description: person not found
   "/api/v1/raffle":
     get:
       summary: list raffles
